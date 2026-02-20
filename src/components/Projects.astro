@@ -1,0 +1,55 @@
+---
+// src/components/Projects.astro
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Defect Detection Platform',
+    description: '结合 YOLOv8 视觉模型与通用 LLM 的在线缺陷检测与判定系统',
+    tech: ['YOLOv8', 'LLM', 'FastAPI', 'GPU'],
+    metrics: [
+      { label: '准确率', value: '96%' },
+      { label: '推理延迟', value: '<50ms' },
+    ],
+  },
+  {
+    title: 'RAG Q&A System',
+    description: '企业知识库 + Text-to-SQL + Agent RAG 实现',
+    tech: ['RAG', 'Milvus', 'PostgreSQL', 'FastAPI'],
+    metrics: [
+      { label: '查询速度', value: '<2s' },
+      { label: '文档支持', value: '10K+' },
+    ],
+  },
+  {
+    title: 'Quality Analysis Platform',
+    description: 'UMAP 降维 + HDBSCAN 聚类的高维数据可视化平台',
+    tech: ['TensorFlow', 'UMAP', 'HDBSCAN'],
+    metrics: [
+      { label: '样本处理', value: '100K+' },
+      { label: '可视化', value: '<5s' },
+    ],
+  },
+  {
+    title: 'AI Inference Engine',
+    description: '独立的 Python 推理包，支持 GPU 加速',
+    tech: ['PyTorch', 'ONNX', 'CUDA'],
+    metrics: [
+      { label: '模型格式', value: '5+' },
+      { label: '安装方式', value: 'pip' },
+    ],
+  },
+];
+---
+
+<section class="py-20">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12">项目展示</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {projects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</section>

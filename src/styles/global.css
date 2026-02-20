@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+
+  /* 暗色模式 */
+  .dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+}
+
+/* 暗色模式变量 */
+:root {
+  --bg-primary: theme('colors.slate.50');
+  --bg-secondary: theme('colors.slate.100');
+  --bg-card: theme('colors.white');
+  --text-primary: theme('colors.slate.900');
+  --text-secondary: theme('colors.slate.600');
+  --text-muted: theme('colors.slate.500');
+  --border-color: theme('colors.slate.200');
+}
+
+.dark {
+  --bg-primary: theme('colors.slate.900');
+  --bg-secondary: theme('colors.slate.800');
+  --bg-card: theme('colors.slate.800');
+  --text-primary: theme('colors.slate.100');
+  --text-secondary: theme('colors.slate.300');
+  --text-muted: theme('colors.slate.400');
+  --border-color: theme('colors.slate.700');
+}
+
+/* prose 暗色模式 */
+.dark .prose {
+  --tw-prose-body: theme('colors.slate.300');
+  --tw-prose-headings: theme('colors.slate.100');
+  --tw-prose-links: theme('colors.blue.400');
+  --tw-prose-code: theme('colors.slate.200');
+  --tw-prose-pre-bg: theme('colors.slate.800');
+}
+
+/* 打印样式优化 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    @apply bg-white;
+  }
+}

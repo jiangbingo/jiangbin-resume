@@ -1,0 +1,148 @@
+---
+// src/components/Search.astro
+// Pagefind 搜索组件
+---
+
+<button
+  id="search-button"
+  type="button"
+  class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700 transition-colors"
+  aria-label="搜索"
+  title="搜索 (Ctrl+K)"
+>
+  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+</button>
+
+<!-- 搜索模态框 -->
+<div id="search-modal" class="fixed inset-0 z-[100] hidden">
+  <!-- 背景遮罩 -->
+  <div id="search-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+  <!-- 搜索容器 -->
+  <div class="relative z-10 flex items-start justify-center pt-20 px-4">
+    <div class="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl shadow-2xl overflow-hidden">
+      <!-- 搜索输入区 -->
+      <div id="search-container" class="p-4">
+        <!-- Pagefind UI 会在这里渲染 -->
+      </div>
+
+      <!-- 关闭按钮 -->
+      <button
+        id="search-close"
+        class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+        aria-label="关闭搜索"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Pagefind UI 样式覆盖 */
+  :root {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: #3b82f6;
+    --pagefind-ui-text: #1e293b;
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: #e2e8f0;
+    --pagefind-ui-tag: #f1f5f9;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-image-border-radius: 8px;
+    --pagefind-ui-image-box-ratio: 3 / 2;
+    --pagefind-ui-font: inherit;
+  }
+
+  .dark {
+    --pagefind-ui-primary: #60a5fa;
+    --pagefind-ui-text: #f1f5f9;
+    --pagefind-ui-background: #1e293b;
+    --pagefind-ui-border: #334155;
+    --pagefind-ui-tag: #334155;
+  }
+</style>
+
+<script define:vars={{}}>
+  // 搜索功能 - 使用运行时加载 Pagefind
+  const searchButton = document.getElementById('search-button');
+  const searchModal = document.getElementById('search-modal');
+  const searchBackdrop = document.getElementById('search-backdrop');
+  const searchClose = document.getElementById('search-close');
+  const searchContainer = document.getElementById('search-container');
+
+  let pagefindLoaded = false;
+
+  // 打开搜索
+  async function openSearch() {
+    searchModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // 延迟加载 Pagefind UI
+    if (!pagefindLoaded) {
+      try {
+        // 动态加载 Pagefind UI CSS
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/pagefind/pagefind-ui.css';
+        document.head.appendChild(link);
+
+        // 动态加载 Pagefind UI JS
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = () => {
+          // @ts-ignore
+          new PagefindUI({
+            element: '#search-container',
+            showSubResults: true,
+            showImages: false,
+          });
+          // 聚焦搜索框
+          setTimeout(() => {
+            const input = searchContainer.querySelector('input');
+            if (input) input.focus();
+          }, 100);
+        };
+        document.head.appendChild(script);
+        pagefindLoaded = true;
+      } catch (e) {
+        searchContainer.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">搜索功能需要在构建后才能使用</p>';
+      }
+    } else {
+      // 聚焦搜索框
+      setTimeout(() => {
+        const input = searchContainer.querySelector('input');
+        if (input) input.focus();
+      }, 100);
+    }
+  }
+
+  // 关闭搜索
+  function closeSearch() {
+    searchModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // 事件绑定
+  searchButton.addEventListener('click', openSearch);
+  searchClose.addEventListener('click', closeSearch);
+  searchBackdrop.addEventListener('click', closeSearch);
+
+  // 键盘快捷键
+  document.addEventListener('keydown', function(e) {
+    // Ctrl+K 或 Cmd+K 打开搜索
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+
+    // ESC 关闭搜索
+    if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+      closeSearch();
+    }
+  });
+</script>

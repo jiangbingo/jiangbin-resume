@@ -1,0 +1,43 @@
+---
+// src/components/Hero.astro
+import Particles from './Particles.astro';
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <Particles />
+
+  <div class="container mx-auto px-6 py-20 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- 头像 -->
+      <img
+        src="/assets/avatar.jpg"
+        alt="江斌"
+        class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-700 shadow-lg object-cover"
+      />
+
+      <!-- 名称 -->
+      <h1 class="text-5xl font-bold mb-4 text-slate-900 dark:text-slate-100">江斌</h1>
+
+      <!-- 职位 -->
+      <p class="text-xl text-slate-600 dark:text-slate-400 mb-6">AI Application Engineer · Python Backend</p>
+
+      <!-- 简介 -->
+      <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+        15年软件开发与测试经验，从嵌入式硬件、自动化测试，到云端后端与大模型应用。
+        能够将复杂业务需求转化为稳定、可扩展的工程实现。
+      </p>
+
+      <!-- 社交链接 -->
+      <div class="flex justify-center gap-4">
+        <a href="https://github.com/jiangbingo" target="_blank"
+           class="px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:bg-slate-700 dark:hover:bg-slate-600 transition">
+          GitHub
+        </a>
+        <a href="mailto:jiangbingo@hotmail.com"
+           class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition dark:text-slate-300">
+          Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

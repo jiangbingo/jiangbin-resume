@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => data.publish);
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))];
+---
+
+<Base title="博客 - 江斌">
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-bold text-center mb-12">📝 技术博客</h1>
+
+      <div class="max-w-3xl mx-auto space-y-6">
+        {sortedPosts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="block bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+            <div class="text-sm text-slate-500 dark:text-slate-400 mb-2">
+              {post.data.date.toLocaleDateString('zh-CN')}
+            </div>
+            <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
+            <p class="text-slate-600 dark:text-slate-400">{post.data.description}</p>
+            <div class="flex gap-2 mt-4">
+              {post.data.tags.map((tag) => (
+                <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
