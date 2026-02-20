@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+# 江斌的个人简历网站
 
-```sh
-npm create astro@latest -- --template minimal
+AI 应用工程师 / Python 后端开发工程师的个人作品集网站。
+
+## 技术栈
+
+- **框架**: Astro 5.x
+- **样式**: Tailwind CSS
+- **搜索**: Pagefind
+- **部署**: Vercel
+
+## 功能特性
+
+- SEO 优化（sitemap、Open Graph、Twitter Card）
+- RSS 订阅
+- 暗色模式（跟随系统 + 手动切换）
+- 全站搜索（Ctrl/Cmd+K）
+- Vercel Analytics
+
+## 开发命令
+
+```bash
+npm install     # 安装依赖
+npm run dev     # 启动开发服务器
+npm run build   # 构建生产版本
+npm run preview # 预览构建结果
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 部署
 
-## 🚀 Project Structure
+项目自动部署到 Vercel，每次推送到 master 分支会自动触发部署。
 
-Inside of your Astro project, you'll see the following folders and files:
+## 仓库地址
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- GitHub: https://github.com/jiangbingo/jiangbin-resume
