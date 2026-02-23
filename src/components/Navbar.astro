@@ -1,0 +1,134 @@
+---
+// src/components/Navbar.astro
+import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
+
+const navItems = [
+  { href: '#hero', label: '首页' },
+  { href: '#skills', label: '核心能力' },
+  { href: '#projects', label: '代表项目' },
+  { href: '#about', label: '工作经历' },
+];
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50 border-b border-slate-200 dark:border-slate-700 transition-all duration-300">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="font-bold text-lg text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">江斌</a>
+
+    <!-- 桌面端导航 -->
+    <div class="hidden md:flex gap-6 items-center">
+      {navItems.map((item) => (
+        <a href={item.href}
+           class="nav-link text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors relative py-1"
+           data-section={item.href.replace('#', '')}>
+          {item.label}
+          <span class="nav-indicator absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 transition-all duration-300"></span>
+        </a>
+      ))}
+      <a href="https://github.com/jiangbingo" target="_blank"
+         class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
+        GitHub
+      </a>
+      <Search />
+      <ThemeToggle />
+    </div>
+
+    <!-- 移动端菜单按钮 -->
+    <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 移动端菜单 -->
+  <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
+    <div class="container mx-auto px-6 py-4 flex flex-col gap-4">
+      {navItems.map((item) => (
+        <a href={item.href}
+           class="nav-link text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-2"
+           data-section={item.href.replace('#', '')}>
+          {item.label}
+        </a>
+      ))}
+      <a href="https://github.com/jiangbingo" target="_blank"
+         class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-2">
+        GitHub
+      </a>
+      <div class="flex gap-4 pt-2 border-t border-slate-200 dark:border-slate-700">
+        <Search />
+        <ThemeToggle />
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // 移动端菜单切换
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = menuBtn?.querySelector('.menu-icon');
+  const closeIcon = menuBtn?.querySelector('.close-icon');
+
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+
+  // 点击导航链接后关闭移动端菜单
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+    });
+  });
+
+  // 滚动时高亮当前区块
+  const sections = ['hero', 'skills', 'projects', 'about'];
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          navLinks.forEach((link) => {
+            const linkSection = (link as HTMLAnchorElement).dataset.section;
+            const indicator = link.querySelector('.nav-indicator');
+
+            if (linkSection === sectionId) {
+              link.classList.add('text-indigo-600', 'dark:text-indigo-400');
+              link.classList.remove('text-slate-600', 'dark:text-slate-400');
+              indicator?.classList.add('w-full');
+            } else {
+              link.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+              link.classList.add('text-slate-600', 'dark:text-slate-400');
+              indicator?.classList.remove('w-full');
+            }
+          });
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  sections.forEach((sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) observer.observe(section);
+  });
+
+  // 滚动时导航栏样式变化
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > 100) {
+      navbar?.classList.add('shadow-md');
+    } else {
+      navbar?.classList.remove('shadow-md');
+    }
+  });
+</script>

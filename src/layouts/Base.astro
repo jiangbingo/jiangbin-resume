@@ -1,6 +1,5 @@
 ---
-import ThemeToggle from '../components/ThemeToggle.astro';
-import Search from '../components/Search.astro';
+import Navbar from '../components/Navbar.astro';
 import Analytics from '@vercel/analytics/astro';
 
 interface Props {
@@ -43,18 +42,7 @@ const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen">
-    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50 border-b border-slate-200 dark:border-slate-700">
-      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="/" class="font-bold text-lg text-slate-900 dark:text-slate-100">江斌</a>
-        <div class="flex gap-4 items-center">
-          <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition">首页</a>
-          <a href="/blog" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition">博客</a>
-          <a href="https://github.com/jiangbingo" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition">GitHub</a>
-          <Search />
-          <ThemeToggle />
-        </div>
-      </div>
-    </nav>
+    <Navbar />
     <main class="pt-16">
       <slot />
     </main>
