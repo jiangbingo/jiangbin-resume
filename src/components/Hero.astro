@@ -12,14 +12,20 @@ import Particles from './Particles.astro';
       <img
         src="/assets/avatar.jpg"
         alt="江斌"
-        class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-700 shadow-lg object-cover"
+        class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-700 shadow-lg object-cover animate-glow hover:scale-105 transition-transform duration-300"
       />
 
       <!-- 名称 -->
-      <h1 class="text-5xl font-bold mb-4 text-slate-900 dark:text-slate-100">江斌</h1>
+      <h1 class="text-5xl font-bold mb-4 text-slate-900 dark:text-slate-100 flex justify-center">
+        <span class="animate-char" style="animation-delay: 0.1s">江</span>
+        <span class="animate-char" style="animation-delay: 0.2s">斌</span>
+      </h1>
 
       <!-- 职位 -->
-      <p class="text-xl text-slate-600 dark:text-slate-400 mb-2">AI 应用工程师 / Python 后端开发工程师</p>
+      <p class="text-xl text-slate-600 dark:text-slate-400 mb-2 h-8">
+        <span id="typewriter"></span>
+        <span class="inline-block w-0.5 h-6 bg-slate-600 dark:bg-slate-400 ml-1 align-middle animate-pulse"></span>
+      </p>
 
       <!-- 地点 -->
       <p class="text-sm text-slate-500 dark:text-slate-500 mb-6">📍 杭州 / 武汉</p>
@@ -31,17 +37,20 @@ import Particles from './Particles.astro';
       </p>
 
       <!-- 社交链接 -->
-      <div class="flex justify-center gap-4 flex-wrap">
+      <div class="flex justify-center gap-4 flex-wrap animate-fade-in-up" style="animation-delay: 0.5s">
         <a href="https://github.com/jiangbingo" target="_blank"
-           class="px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:bg-slate-700 dark:hover:bg-slate-600 transition">
+           class="px-5 py-2.5 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
         <button id="wechat-btn"
-           class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+           class="px-5 py-2.5 bg-green-600 text-white rounded-lg hover:-translate-y-1 hover:shadow-lg hover:bg-green-700 transition-all duration-300 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.045c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.49.49 0 01-.011-.153.49.49 0 01.193-.39C23.267 17.792 24 16.382 24 14.833c0-3.37-3.247-6.03-7.062-5.975zM14.18 13.178c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.97-.982z"/></svg>
           微信
         </button>
         <a href="mailto:jiangbingo@hotmail.com"
-           class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition dark:text-slate-300">
+           class="px-5 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 hover:shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 dark:text-slate-300 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           Email
         </a>
       </div>
@@ -84,4 +93,46 @@ import Particles from './Particles.astro';
     wechatModal?.classList.add('hidden');
     wechatModal?.classList.remove('flex');
   });
+
+  // 打字机效果
+  const titles = [
+    'AI 应用工程师',
+    'Python 后端开发工程师',
+    '全栈工程师',
+  ];
+
+  const typewriterEl = document.getElementById('typewriter');
+  let titleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typeSpeed = 100;
+
+  function type() {
+    if (!typewriterEl) return;
+
+    const currentTitle = titles[titleIndex];
+
+    if (isDeleting) {
+      typewriterEl.textContent = currentTitle.substring(0, charIndex - 1);
+      charIndex--;
+      typeSpeed = 50;
+    } else {
+      typewriterEl.textContent = currentTitle.substring(0, charIndex + 1);
+      charIndex++;
+      typeSpeed = 100;
+    }
+
+    if (!isDeleting && charIndex === currentTitle.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      titleIndex = (titleIndex + 1) % titles.length;
+      typeSpeed = 500;
+    }
+
+    setTimeout(type, typeSpeed);
+  }
+
+  setTimeout(type, 1000);
 </script>

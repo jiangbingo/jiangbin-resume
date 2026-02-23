@@ -36,14 +36,36 @@ const skillGroups = [
 ];
 ---
 
-<section class="py-20 bg-slate-100 dark:bg-slate-800">
+<section id="skills" class="py-20 bg-slate-100 dark:bg-slate-800">
   <div class="container mx-auto px-6">
-    <h2 class="text-3xl font-bold text-center mb-12">核心能力</h2>
+    <h2 class="text-3xl font-bold text-center mb-12 scroll-animate">核心能力</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      {skillGroups.map((group) => (
-        <SkillCard {...group} />
+      {skillGroups.map((group, index) => (
+        <div class={`scroll-animate stagger-${Math.min(index + 1, 6)}`}>
+          <SkillCard {...group} />
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  // Intersection Observer 滚动动画
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.scroll-animate').forEach((el) => {
+    observer.observe(el);
+  });
+</script>
