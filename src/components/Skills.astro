@@ -1,39 +1,7 @@
 ---
 // src/components/Skills.astro
 import SkillCard from './SkillCard.astro';
-
-const skillGroups = [
-  {
-    icon: '🤖',
-    title: 'AI 应用工程',
-    skills: ['RAG 检索增强', 'Prompt Engineering', 'Agent RAG', 'Text-to-SQL', 'LLM Function Calling'],
-  },
-  {
-    icon: '⚙️',
-    title: 'Python 后端',
-    skills: ['FastAPI', 'Django', 'Pydantic 2.9+', '异步架构', 'Celery', '消息队列'],
-  },
-  {
-    icon: '☁️',
-    title: '云原生 & ML 部署',
-    skills: ['Azure Functions', 'Serverless', 'ML Endpoint', 'Docker', 'GitHub Actions'],
-  },
-  {
-    icon: '🧠',
-    title: '深度学习',
-    skills: ['PyTorch 2.2+', 'TensorFlow 2.19', 'YOLOv8', 'ONNX Runtime', 'Keras'],
-  },
-  {
-    icon: '📊',
-    title: '数据 & 数据库',
-    skills: ['PostgreSQL', 'Milvus', 'MariaDB', 'Pandas', 'NumPy', 'UMAP'],
-  },
-  {
-    icon: '💻',
-    title: '全栈工程背景',
-    skills: ['嵌入式开发', 'C/汇编', 'pytest', 'RobotFramework', '跨领域融合'],
-  },
-];
+import { skillGroups } from '../data/skills';
 ---
 
 <section id="skills" class="py-20 bg-slate-100 dark:bg-slate-800">

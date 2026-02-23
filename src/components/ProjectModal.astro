@@ -1,0 +1,112 @@
+---
+// src/components/ProjectModal.astro
+---
+
+<div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+  <div id="modal-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="relative z-10 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <!-- 关闭按钮 -->
+    <button id="modal-close" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors z-20">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- 内容区域 -->
+    <div class="p-6 md:p-8">
+      <!-- 顶部渐变 -->
+      <div class="h-32 -mx-6 md:-mx-8 -mt-6 md:-mt-8 mb-6 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 rounded-t-2xl"></div>
+
+      <!-- 标题 -->
+      <h2 id="modal-title" class="text-2xl font-bold mb-4"></h2>
+
+      <!-- 描述 -->
+      <p id="modal-description" class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed"></p>
+
+      <!-- 技术栈 -->
+      <div class="mb-6">
+        <h3 class="font-semibold mb-3 text-slate-900 dark:text-slate-100">技术栈</h3>
+        <div id="modal-tech" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- 核心亮点 -->
+      <div id="modal-highlights-container" class="mb-6 hidden">
+        <h3 class="font-semibold mb-3 text-slate-900 dark:text-slate-100">核心亮点</h3>
+        <ul id="modal-highlights" class="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-1"></ul>
+      </div>
+
+      <!-- 链接 -->
+      <div id="modal-links" class="flex gap-4 flex-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { projects } from '../data/projects';
+
+  const modal = document.getElementById('project-modal');
+  const backdrop = document.getElementById('modal-backdrop');
+  const closeBtn = document.getElementById('modal-close');
+
+  function openModal(projectId: string) {
+    const project = projects.find((p) => p.id === projectId);
+    if (!project) return;
+
+    (document.getElementById('modal-title') as HTMLElement).textContent = project.title;
+    (document.getElementById('modal-description') as HTMLElement).textContent = project.fullDescription;
+
+    // 技术栈
+    const techContainer = document.getElementById('modal-tech');
+    if (techContainer) {
+      techContainer.innerHTML = project.tech
+        .map((t) => `<span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full text-sm">${t}</span>`)
+        .join('');
+    }
+
+    // 亮点
+    const highlightsContainer = document.getElementById('modal-highlights-container');
+    const highlightsList = document.getElementById('modal-highlights');
+    if (project.highlights && highlightsContainer && highlightsList) {
+      highlightsContainer.classList.remove('hidden');
+      highlightsList.innerHTML = project.highlights.map((h) => `<li>${h}</li>`).join('');
+    } else if (highlightsContainer) {
+      highlightsContainer.classList.add('hidden');
+    }
+
+    // 链接
+    const linksContainer = document.getElementById('modal-links');
+    if (linksContainer && project.links) {
+      const links = [];
+      if (project.links.github) {
+        links.push(`<a href="${project.links.github}" target="_blank" class="px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:bg-slate-700 dark:hover:bg-slate-600 transition">GitHub</a>`);
+      }
+      if (project.links.demo) {
+        links.push(`<a href="${project.links.demo}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">在线演示</a>`);
+      }
+      linksContainer.innerHTML = links.join('');
+    } else if (linksContainer) {
+      linksContainer.innerHTML = '';
+    }
+
+    modal?.classList.remove('hidden');
+    modal?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+
+  // ESC 关闭
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // 暴露全局函数
+  (window as any).openProjectModal = openModal;
+</script>

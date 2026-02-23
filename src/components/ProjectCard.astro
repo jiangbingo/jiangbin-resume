@@ -1,6 +1,7 @@
 ---
 // src/components/ProjectCard.astro
 interface Props {
+  id: string;
   title: string;
   description: string;
   tech: string[];
@@ -8,10 +9,11 @@ interface Props {
   link?: string;
 }
 
-const { title, description, tech, metrics, link } = Astro.props;
+const { id, title, description, tech, metrics, link } = Astro.props;
 ---
 
-<div class="group bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-indigo-400 dark:hover:border-indigo-500 cursor-pointer hover:-translate-y-1">
+<div class="group bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-indigo-400 dark:hover:border-indigo-500 cursor-pointer hover:-translate-y-1"
+     onclick={`openProjectModal('${id}')`}>
   <!-- 顶部渐变装饰 -->
   <div class="h-2 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 opacity-60 group-hover:opacity-100 transition-opacity"></div>
 

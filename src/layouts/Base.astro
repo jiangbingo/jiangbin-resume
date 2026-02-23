@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar.astro';
+import ProjectModal from '../components/ProjectModal.astro';
 import Analytics from '@vercel/analytics/astro';
 
 interface Props {
@@ -46,6 +47,7 @@ const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <main class="pt-16">
       <slot />
     </main>
+    <ProjectModal />
     <Analytics />
   </body>
 </html>
